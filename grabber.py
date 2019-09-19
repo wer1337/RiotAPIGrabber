@@ -1,7 +1,7 @@
 import requests
 import datetime
 
-APIKey = <INSERT YOUR OWN>
+APIKey = "RGAPI-1b508a8b-29cf-479e-986d-a90bfee97526"
 
 def get_champ_name(champ_id):
     champions = requests.get('https://ddragon.leagueoflegends.com/cdn/9.18.1/data/en_US/champion.json').json()['data']
