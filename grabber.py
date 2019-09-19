@@ -13,13 +13,12 @@ def get_champ_name():
 
 
 def req_summ_data(region, summ_name):
-    url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summ_name + "?api_key=" + api_key
-
+    url = f"https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summ_name}?api_key={api_key}"
     return requests.get(url).json()
 
 
 def match_history(region, account_id):
-    url = "https://" + region + ".api.riotgames.com/lol/match/v4/matchlists/by-account/" + account_id +"?api_key=" + api_key
+    url = f"https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{account_id}?api_key={api_key}"
 
     matches = requests.get(url).json()['matches']
     champ_json = get_champ_name()
@@ -36,7 +35,6 @@ def match_history(region, account_id):
         # Converts ms timestamp to normal people timestamp in format of Mon Day Year
         timestamp = datetime.datetime.fromtimestamp(matches[i]['timestamp'] / 1000).strftime("%b %d %Y")
         print(f"Match ID: {match_id:^20} Champion: {champ_json[str(matches[i]['champion'])]:^20} Lane: {lane:^20} Time: {timestamp}")
-    return 0
 
 
 def main():
