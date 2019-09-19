@@ -1,29 +1,25 @@
 import requests
 import datetime
+import yaml
+import json
 
-APIKey = "RGAPI-1b508a8b-29cf-479e-986d-a90bfee97526"
 
 def get_champ_name(champ_id):
-    champions = requests.get('https://ddragon.leagueoflegends.com/cdn/9.18.1/data/en_US/champion.json').json()['data']
+    # Loads the json file
+    with open("tools/champion.json") as f:
+        loaded_json = json.load(f)
 
-    # Loops through champions list from ddragon
-    for i in champions.values():
-        # Compares the champion key '1-xxx' to the given id
-        if int(i['key']) == champ_id:
-            # Returns name of champion
-            return i['id']
-    # If invalid number returns 'None" str
-    return 'None'
+    return loaded_json[str(champ_id)]
 
 
 def req_summ_data(region, summ_name):
-    url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summ_name + "?api_key=" + APIKey
+    url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summ_name + "?api_key=" + api_key
 
     return requests.get(url).json()
 
 
 def match_history(region, summ_name, account_id):
-    url = "https://" + region + ".api.riotgames.com/lol/match/v4/matchlists/by-account/" + account_id +"?api_key=" + APIKey
+    url = "https://" + region + ".api.riotgames.com/lol/match/v4/matchlists/by-account/" + account_id +"?api_key=" + api_key
 
     matches = requests.get(url).json()['matches']
 
@@ -44,8 +40,11 @@ def match_history(region, summ_name, account_id):
 
 
 def main():
-    region = input("Input Region: ")
-    summ_name = input("Input Summoner Name: ")
+    # region = input("Input Region: ")
+    # Going to default region to na1 since it's for personal usage
+    region = 'na1'
+    # summ_name = input("Input Summoner Name: ")
+    summ_name = 'Alteration'
 
     # Summoner Information
     response_json = req_summ_data(region, summ_name)
@@ -57,4 +56,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    with open("app_config.yml", "r") as config_file:
+        APP_CONFIG = yaml.safe_load(config_file)
+    try:
+        api_key = APP_CONFIG.get("api_key")
+        main()
+    except Exception as ex:
+        print(f"Exception: {repr(ex)}")
