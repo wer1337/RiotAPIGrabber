@@ -13,8 +13,8 @@ def data():
 
     champions = {}
 
-    for i in ddragon_json.values():
-        champions.update({i['key']:i['id']})
+    for name, data in ddragon_json.items():
+        champions[data['key']] = name
 
     return champions
 
