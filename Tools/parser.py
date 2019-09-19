@@ -6,6 +6,7 @@ This tool will create my own personal json file for my program to use
 import requests
 import json
 
+
 def data():
     ddragon_url = "https://ddragon.leagueoflegends.com/cdn/9.18.1/data/en_US/champion.json"
     ddragon_json = requests.get(ddragon_url).json()['data']
@@ -16,7 +17,6 @@ def data():
         champions.update({i['key']:i['id']})
 
     return champions
-
 
 
 def main():
