@@ -25,8 +25,6 @@ def main():
     with open('champion.json', 'w', encoding='utf-8') as f:
         json.dump(champions, f, ensure_ascii=False, indent=4)
 
-    return 0
-
 
 if __name__ == '__main__':
     main()

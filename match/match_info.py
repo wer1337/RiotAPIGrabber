@@ -1,6 +1,7 @@
 import requests
 import datetime
-import champ_name as cname
+from champion import champ_name as cname
+
 
 def match_history(region, account_id, api_key):
     url = f"https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{account_id}?api_key={api_key}"

@@ -1,7 +1,7 @@
 import yaml
-import summoner_info as si
-import match_info as mi
-# Obtains champions name, returns as a dict
+from summoner import summoner_info as si
+from match import match_info as mi
+
 
 def main():
     # region = input("Input Region: ")
